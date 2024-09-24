@@ -4,101 +4,67 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.ArrayList;
-import java.util.List;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
 
-public class ImageAnimation {
-
-    private JFrame frame;
+public class ImageAnimation extends JFrame {
     private JLabel imageLabel;
-    private Timer animationTimer;
+    private Timer timer;
     private JSlider speedSlider;
-    private List<ImageIcon> images;
     private int currentImageIndex = 0;
+    private int delay = 500; 
+    private final String[] imageNames = {"man1.png", "man2.png", "man3.png", "man4.png", "man5.png", "man6.png", "man7.png", "man8.png"};
+    private ImageIcon[] images;
 
-    public static void main(String[] args) {
-        SwingUtilities.invokeLater(() -> new ImageAnimation().createAndShowGUI());
-    }
-
-    private void createAndShowGUI() {
-        frame = new JFrame("Animación de Imágenes");
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setSize(600, 400);
-        frame.setLayout(new BorderLayout());
-
+    public ImageAnimation() {
         // Cargar imágenes
-        loadImages();
+        images = new ImageIcon[imageNames.length];
+        for (int i = 0; i < imageNames.length; i++) {
+            images[i] = new ImageIcon(getClass().getResource(imageNames[i]));
+        }
 
-        // Crear y agregar el JLabel para mostrar las imágenes
+        setTitle("Animación de Imágenes");
+        setSize(400, 400);
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setLayout(new BorderLayout());
+
         imageLabel = new JLabel();
-        // Establecer un tamaño preferido para el JLabel
-        imageLabel.setPreferredSize(new Dimension(600, 400));
-        frame.add(imageLabel, BorderLayout.CENTER);
+        imageLabel.setHorizontalAlignment(JLabel.CENTER);
+        imageLabel.setIcon(images[0]); 
+        add(imageLabel, BorderLayout.CENTER);
 
-        // Crear y agregar el control deslizante para ajustar la velocidad
-        speedSlider = new JSlider(JSlider.HORIZONTAL, 1, 100, 50);
-        speedSlider.setMajorTickSpacing(10);
-        speedSlider.setMinorTickSpacing(1);
+        speedSlider = new JSlider(JSlider.HORIZONTAL, 100, 2000, delay);
+        speedSlider.setMajorTickSpacing(500);
+        speedSlider.setMinorTickSpacing(100);
         speedSlider.setPaintTicks(true);
         speedSlider.setPaintLabels(true);
-        speedSlider.addChangeListener(e -> updateTimerInterval());
-
-        JPanel sliderPanel = new JPanel();
-        sliderPanel.add(new JLabel("Velocidad de Animación:"));
-        sliderPanel.add(speedSlider);
-        frame.add(sliderPanel, BorderLayout.SOUTH);
-
-        // Crear el temporizador para la animación
-        animationTimer = new Timer(getTimerInterval(), new ActionListener() {
+        speedSlider.addChangeListener(new ChangeListener() {
             @Override
-            public void actionPerformed(ActionEvent e) {
-                showNextImage();
+            public void stateChanged(ChangeEvent e) {
+                delay = speedSlider.getValue();
+                timer.setDelay(delay); // Cambiar el delay del temporizador
             }
         });
-        animationTimer.start();
+        add(speedSlider, BorderLayout.SOUTH);
 
-        // Mostrar la primera imagen
-        showNextImage();
-
-        frame.setVisible(true);
-    }
-
-    private void loadImages() {
-        images = new ArrayList<>();
-        // Cargar las imágenes desde archivos
-        String[] imageFiles = {"man1.png", "man2.png", "man3.png", "man4.png", "man5.png", "man6.png", "man7.png", "man8.png"};
-        for (String file : imageFiles) {
-            ImageIcon imageIcon = new ImageIcon(file);
-            if (imageIcon.getImageLoadStatus() != MediaTracker.COMPLETE) {
-                System.out.println("Error al cargar " + file);
-            } else {
-                images.add(imageIcon);
+        // Temporizador para cambiar las imágenes
+        timer = new Timer(delay, new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                currentImageIndex = (currentImageIndex + 1) % images.length;
+                imageLabel.setIcon(images[currentImageIndex]);
             }
-        }
-        if (images.isEmpty()) {
-            System.out.println("No se cargaron imágenes.");
-        }
+        });
+        timer.start();
     }
 
-    private void showNextImage() {
-        if (images.isEmpty()) return;
-        ImageIcon currentImageIcon = images.get(currentImageIndex);
-        Image scaledImage = currentImageIcon.getImage().getScaledInstance(imageLabel.getWidth(), imageLabel.getHeight(), Image.SCALE_SMOOTH);
-        imageLabel.setIcon(new ImageIcon(scaledImage));
-        currentImageIndex = (currentImageIndex + 1) % images.size();
-        System.out.println("Mostrando imagen: " + currentImageIndex);
-    }
-
-    private int getTimerInterval() {
-        // Convertir el valor del slider (1-100) a un intervalo de temporizador en milisegundos (100-2000 ms)
-        int sliderValue = speedSlider.getValue();
-        int interval = 2100 - sliderValue * 20;
-        System.out.println("Intervalo del temporizador: " + interval + " ms");
-        return interval;
-    }
-
-    private void updateTimerInterval() {
-        // Detener el temporizador actual y reiniciarlo con el nuevo intervalo
-        animationTimer.setDelay(getTimerInterval());
+    public static void main(String[] args) {
+        SwingUtilities.invokeLater(new Runnable() {
+            @Override
+            public void run() {
+                new ImageAnimation().setVisible(true);
+            }
+        });
     }
 }
+
