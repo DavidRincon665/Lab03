@@ -1,0 +1,72 @@
+
+Fabricio Andres Benitez Gonzalez 7004299, David Alejandro Rincon Triana 7004319
+# Temporizadores
+
+*Autores:*
+- Benítez González Fabricio Andrés
+- Rincon Triana David Alejandro
+
+*Correos:*  
+est.{fabricio.benítez, david.arincon}@unimilitar.edu.co
+
+*Profesor:*  
+Héctor Murcia Forero
+
+## Resumen
+
+Cronómetro con Timers:
+Se desarrolló un cronómetro que utiliza temporizadores (timers) para llevar el seguimiento del tiempo.
+El cronómetro muestra la hora en el formato estándar de HH:mm
+
+El sistema permite configurar una alarma que se activa después de un tiempo predefinido. Por ejemplo, si se configuran 2 minutos, al transcurrir dicho tiempo, se activa una alarma que suena cada 10 segundos.
+Animación con Temporizador:
+Se programó un temporizador que muestra secuencialmente imágenes almacenadas en un arreglo, permitiendo la creación de una animación en pantalla.
+El usuario tiene la opción de controlar la velocidad de la animación mediante un control deslizante (slider), ajustando la frecuencia con la que se muestra cada imagen.
+
+*Palabras clave:* Cronómetro, temporizador, HH:mm
+, alarma, secuencia de imágenes, animación, control deslizante, slider, velocidad de animación.
+
+## Introducción
+
+En este informe se describe el desarrollo de dos funcionalidades clave empleando temporizadores en un entorno de programación: un cronómetro que muestra el tiempo en formato HH:mm
+y permite configurar alarmas, y una animación controlada mediante un temporizador que permite al usuario ajustar la velocidad de visualización de imágenes mediante un control deslizante. Ambas aplicaciones destacan el uso de temporizadores como herramientas eficientes para gestionar tareas basadas en tiempo y mejorar la interacción del usuario.
+
+## Marco Teórico
+
+Los temporizadores son objetos de la clase Timer que se utiliza para programar una tarea que se ejecutará después de un período de tiempo específico. Las tareas se pueden programar para una ejecución única o para una ejecución repetida periódicamente.
+
+Se pueden crear varios objetos de la clase Timer, pero hay un único hilo en segundo plano que supervisa la ejecución de las tareas de cada Timer.
+
+
+## Competencias Desarrolladas
+
+1. El estudiante debe estar en capacidad de construir y ejecutar aplicaciones en el IDE NetBeans utilizando el lenguaje de programación orientado a objetos JAVA.
+
+## Desarrollo de la Práctica
+
+El desarrollo se documenta en las siguientes secciones, junto con ejemplos y pseudocódigo:
+
+1. *Cronometro con Timers:*
+    - Mostrar la hora en el siguiente formato HH:mm:ss
+    - Permita configurar un tiempo en el cual se debe generar una alarma, por ejemplo: Se configuran 2 minutos y después de 2 minutos debe comenzar a sonar una alarma cada 10 segundos.
+
+
+2. *Imagenes de secuencia:*
+    - Poder cambiar la velocidad de la animación con un control deslizante.
+
+
+## Análisis de Resultados
+
+El cronómetro implementado mostró precisión en el formato HH:mm
+y permitió configurar alarmas, activándose correctamente tras el tiempo programado. El desempeño fue adecuado, con posibles mejoras en la interfaz de usuario y opciones de alerta.
+
+La animación con temporizador permitió cambiar la velocidad de visualización mediante un control deslizante, con buen rendimiento en general, aunque mostró pequeñas caídas a velocidades muy altas. Se sugiere optimizar el sistema y agregar más controles de usuario.
+## Conclusiones
+
+- Los temporizadores son herramientas eficaces para la gestión de eventos cronometrados y aplicaciones interactivas. Ambos ejercicios mostraron precisión y flexibilidad, aunque hay margen de mejora en rendimiento y usabilidad.
+
+## Referencias
+
+1. NetBeans IDE. (2013). Tutorial Quick Start Guide. Apache NetBeans. [Enlace](https://netbeans.org/kb/docs/java/quickstart.html)
+2. NetBeans IDE. (2013). Java GUI Applications Learning Trail. Apache NetBeans. [Enlace](https://netbeans.org/kb/docs/java/gui-functionality.html)
+3. Deitel, P. J., & Deitel, H. M. (2016). Java: Como Programar. Pearson Educación. [Enlace](http://www.ebooks7-24.com.ezproxy.umng.edu.co/?il=4371)
